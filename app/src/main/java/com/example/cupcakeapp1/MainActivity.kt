@@ -1,51 +1,18 @@
-package com.example.cupcakeapp1
+package com.example.cupcakeapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.cupcakeapp1.ui.theme.CupcakeApp1Theme
+import com.example.cupcakeapp.ui.theme.CupcakeAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
-            CupcakeApp1Theme {
-                // Toda la UI inline
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            CupcakeAppTheme {
+                CupcakeApp()
             }
         }
-    }
-}
-
-// Composable reutilizable inline
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-// Preview inline
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CupcakeApp1Theme {
-        Greeting("Android")
     }
 }
 

@@ -1,0 +1,143 @@
+From a68c68fee8121879cd176dccf3b5d6c402815991 Mon Sep 17 00:00:00 2001
+From: juanvalencia <asiquedabien123@gmail.com>
+Date: Mon, 29 Sep 2025 21:12:12 -0500
+Subject: [PATCH] comit 1: crear proyecto inicial en Compose
+
+---
+ .idea/.name                                   |  1 +
+ .../com/example/cupcakeapp1/CupcakeScreen.kt  | 60 -------------------
+ .../com/example/cupcakeapp1/MainActivity.kt   | 34 ++++++++++-
+ 3 files changed, 34 insertions(+), 61 deletions(-)
+ create mode 100644 .idea/.name
+ delete mode 100644 app/src/main/java/com/example/cupcakeapp1/CupcakeScreen.kt
+
+diff --git a/.idea/.name b/.idea/.name
+new file mode 100644
+index 0000000..34288c1
+--- /dev/null
++++ b/.idea/.name
+@@ -0,0 +1 @@
++CupcakeApp1
+\ No newline at end of file
+diff --git a/app/src/main/java/com/example/cupcakeapp1/CupcakeScreen.kt b/app/src/main/java/com/example/cupcakeapp1/CupcakeScreen.kt
+deleted file mode 100644
+index d612040..0000000
+--- a/app/src/main/java/com/example/cupcakeapp1/CupcakeScreen.kt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-package com.example.cupcakeapp1
+-
+-import androidx.compose.foundation.layout.fillMaxSize
+-import androidx.compose.foundation.layout.padding
+-import androidx.compose.material3.ExperimentalMaterial3Api
+-import androidx.compose.material3.MaterialTheme
+-import androidx.compose.material3.Scaffold
+-import androidx.compose.material3.Text
+-import androidx.compose.material3.TopAppBar
+-import androidx.compose.material3.TopAppBarDefaults
+-import androidx.compose.runtime.Composable
+-import androidx.compose.ui.Modifier
+-import androidx.compose.ui.tooling.preview.Preview
+-import com.example.cupcakeapp1.ui.theme.CupcakeApp1Theme
+-
+-// 👉 Barra superior reutilizable
+-@OptIn(ExperimentalMaterial3Api::class)
+-@Composable
+-fun CupcakeAppBar(modifier: Modifier = Modifier) {
+-    TopAppBar(
+-        title = { Text(text = "Cupcake App") },
+-        colors = TopAppBarDefaults.mediumTopAppBarColors(
+-            containerColor = MaterialTheme.colorScheme.primaryContainer
+-        ),
+-        modifier = modifier
+-    )
+-}
+-
+-// 👉 Pantalla principal con Scaffold + TopAppBar
+-@Composable
+-fun CupcakeApp() {
+-    Scaffold(
+-        modifier = Modifier.fillMaxSize(),
+-        topBar = { CupcakeAppBar() }
+-    ) { innerPadding ->
+-        Greeting(
+-            name = "Android",
+-            modifier = Modifier.padding(innerPadding)
+-        )
+-    }
+-}
+-
+-// 👉 Composable reutilizable para saludo
+-@Composable
+-fun Greeting(name: String, modifier: Modifier = Modifier) {
+-    Text(
+-        text = "Hello $name!",
+-        modifier = modifier
+-    )
+-}
+-
+-// 👉 Preview de toda la app
+-@Preview(showBackground = true)
+-@Composable
+-fun CupcakeAppPreview() {
+-    CupcakeApp1Theme {
+-        CupcakeApp()
+-    }
+-}
+-
+diff --git a/app/src/main/java/com/example/cupcakeapp1/MainActivity.kt b/app/src/main/java/com/example/cupcakeapp1/MainActivity.kt
+index 7607419..7ba254c 100644
+--- a/app/src/main/java/com/example/cupcakeapp1/MainActivity.kt
++++ b/app/src/main/java/com/example/cupcakeapp1/MainActivity.kt
+@@ -4,6 +4,13 @@ import android.os.Bundle
+ import androidx.activity.ComponentActivity
+ import androidx.activity.compose.setContent
+ import androidx.activity.enableEdgeToEdge
++import androidx.compose.foundation.layout.fillMaxSize
++import androidx.compose.foundation.layout.padding
++import androidx.compose.material3.Scaffold
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.tooling.preview.Preview
+ import com.example.cupcakeapp1.ui.theme.CupcakeApp1Theme
+ 
+ class MainActivity : ComponentActivity() {
+@@ -12,8 +19,33 @@ class MainActivity : ComponentActivity() {
+         enableEdgeToEdge()
+         setContent {
+             CupcakeApp1Theme {
+-                CupcakeApp() // 👉 Ahora incluye TopAppBar
++                // Toda la UI inline
++                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
++                    Greeting(
++                        name = "Android",
++                        modifier = Modifier.padding(innerPadding)
++                    )
++                }
+             }
+         }
+     }
+ }
++
++// Composable reutilizable inline
++@Composable
++fun Greeting(name: String, modifier: Modifier = Modifier) {
++    Text(
++        text = "Hello $name!",
++        modifier = modifier
++    )
++}
++
++// Preview inline
++@Preview(showBackground = true)
++@Composable
++fun GreetingPreview() {
++    CupcakeApp1Theme {
++        Greeting("Android")
++    }
++}
++
+-- 
+2.50.1.windows.1
+
