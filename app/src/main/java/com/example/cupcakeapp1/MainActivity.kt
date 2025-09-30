@@ -12,7 +12,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CupcakeApp1Theme {
-                CupcakeApp() // 👉 definido en CupcakeScreen.kt
+                CupcakeApp() // 👉 Ahora incluye TopAppBar
             }
         }
     }
