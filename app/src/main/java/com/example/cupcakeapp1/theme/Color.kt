@@ -1,4 +1,4 @@
-package com.example.cupcakeapp.ui.theme
+package com.example.cupcakeapp1.ui.theme
 
 
 import androidx.compose.ui.graphics.Color
