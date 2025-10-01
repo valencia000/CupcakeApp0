@@ -1,5 +1,6 @@
 package com.example.cupcakeapp1.ui
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,6 +8,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -56,9 +59,28 @@ fun StartOrderScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
             ) {
-                // Aquí se colocarán los botones en commits posteriores
+                // Ejemplo de botón reutilizable
+                SelectQuantityButton(
+                    labelResourceId = R.string.order_cupcakes, // Cambiar por otro string según el botón
+                    onClick = { /* Acción del botón */ }
+                )
             }
         }
+    }
+}
+
+// Botón reutilizable
+@Composable
+fun SelectQuantityButton(
+    @StringRes labelResourceId: Int,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier.widthIn(min = 250.dp)
+    ) {
+        Text(stringResource(labelResourceId))
     }
 }
 
