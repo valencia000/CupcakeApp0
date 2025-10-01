@@ -5,8 +5,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
@@ -26,6 +28,8 @@ import com.example.cupcakeapp1.ui.theme.CupcakeAppTheme
 
 @Composable
 fun StartOrderScreen(
+    quantityOptions: List<Pair<Int, Int>>,
+    onNextButtonClicked: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -60,11 +64,12 @@ fun StartOrderScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
             ) {
-                // Generar botones de cantidad dinámicamente
-                DataSource.quantityOptions.forEach { (labelRes, _) ->
+                // Generar botones dinámicamente con callback
+                quantityOptions.forEach { item ->
                     SelectQuantityButton(
-                        labelResourceId = labelRes,
-                        onClick = { /* Acción del botón */ }
+                        labelResourceId = item.first,
+                        onClick = { onNextButtonClicked(item.second) },
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
@@ -91,7 +96,12 @@ fun SelectQuantityButton(
 @Composable
 fun StartOrderPreview() {
     CupcakeAppTheme {
-        StartOrderScreen()
+        StartOrderScreen(
+            quantityOptions = DataSource.quantityOptions,
+            onNextButtonClicked = {},
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(dimensionResource(R.dimen.padding_medium))
+        )
     }
 }
-
