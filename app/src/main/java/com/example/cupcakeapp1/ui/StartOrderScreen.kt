@@ -43,13 +43,21 @@ fun StartOrderScreen(
 
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
 
-            // Título de pedido
             Text(
                 text = stringResource(R.string.order_cupcakes),
                 style = MaterialTheme.typography.headlineSmall
             )
 
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
+
+            // Columna inferior para botones de acción
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
+            ) {
+                // Aquí se colocarán los botones en commits posteriores
+            }
         }
     }
 }
