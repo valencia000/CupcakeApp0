@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cupcakeapp1.R
+import com.example.cupcakeapp1.data.DataSource
 import com.example.cupcakeapp1.ui.theme.CupcakeAppTheme
 
 @Composable
@@ -59,11 +60,13 @@ fun StartOrderScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
             ) {
-                // Ejemplo de botón reutilizable
-                SelectQuantityButton(
-                    labelResourceId = R.string.order_cupcakes, // Cambiar por otro string según el botón
-                    onClick = { /* Acción del botón */ }
-                )
+                // Generar botones de cantidad dinámicamente
+                DataSource.quantityOptions.forEach { (labelRes, _) ->
+                    SelectQuantityButton(
+                        labelResourceId = labelRes,
+                        onClick = { /* Acción del botón */ }
+                    )
+                }
             }
         }
     }
