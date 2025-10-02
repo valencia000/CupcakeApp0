@@ -1,39 +1,43 @@
 package com.example.cupcakeapp1.navigation
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.cupcakeapp1.ui.StartOrderScreen
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.cupcakeapp1.data.DataSource
 import com.example.cupcakeapp1.ui.OrderScreen
+import com.example.cupcakeapp1.ui.StartOrderScreen
+
+object CupcakeScreens {
+    const val StartOrder = "start_order"
+    const val Order = "order"
+}
 
 @Composable
-fun CupcakeNavGraph(
-    navController: NavHostController,
-    quantityOptions: List<Pair<Int, Int>>,
-    modifier: Modifier = Modifier
-) {
+fun CupcakeNavGraph() {
+    val navController = rememberNavController()
+
     NavHost(
         navController = navController,
-        startDestination = "start_order",
-        modifier = modifier
+        startDestination = CupcakeScreens.StartOrder
     ) {
-        composable("start_order") {
+        composable(CupcakeScreens.StartOrder) {
             StartOrderScreen(
-                quantityOptions = quantityOptions,
-                onNextButtonClicked = { cantidad ->
-                    // Navegar a la pantalla de pedido con la cantidad seleccionada
-                    navController.navigate("order/$cantidad")
-                },
-                modifier = Modifier.fillMaxSize()
+                quantityOptions = DataSource.quantityOptions,
+                onNextButtonClicked = { quantity ->
+                    navController.navigate("${CupcakeScreens.Order}/$quantity")
+                }
             )
         }
 
-        composable("order/{cantidad}") { backStackEntry ->
-            val cantidad = backStackEntry.arguments?.getString("cantidad")?.toIntOrNull() ?: 0
-            OrderScreen(cantidad = cantidad)
+        composable(
+            route = "${CupcakeScreens.Order}/{quantity}",
+            arguments = listOf(navArgument("quantity") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val quantity = backStackEntry.arguments?.getInt("quantity") ?: 1
+            OrderScreen(quantity = quantity)
         }
     }
 }

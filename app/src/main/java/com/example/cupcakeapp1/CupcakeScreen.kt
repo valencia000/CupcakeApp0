@@ -1,29 +1,33 @@
 package com.example.cupcakeapp1
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.dimensionResource
+import com.example.cupcakeapp1.data.DataSource
 import com.example.cupcakeapp1.ui.StartOrderScreen
 import com.example.cupcakeapp1.ui.theme.CupcakeAppTheme
+import com.example.cupcakeapp1.R
 
-@Composable
-fun CupcakeApp() {
-    Scaffold(
-        modifier = Modifier.fillMaxSize()
-    ) { innerPadding ->
-        StartOrderScreen(
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AppPreview() {
-    CupcakeAppTheme {
-        CupcakeApp()
+class CupcakeScreen : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            CupcakeAppTheme {
+                StartOrderScreen(
+                    quantityOptions = DataSource.quantityOptions,
+                    onNextButtonClicked = { cantidadSeleccionada ->
+                        println("Cantidad seleccionada: $cantidadSeleccionada")
+                    },
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(dimensionResource(R.dimen.padding_medium))
+                )
+            }
+        }
     }
 }
 

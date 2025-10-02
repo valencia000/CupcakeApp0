@@ -1,8 +1,7 @@
 package com.example.cupcakeapp1.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -14,19 +13,20 @@ fun StartOrderScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(text = "Selecciona la cantidad de cupcakes:")
+        Text("Selecciona la cantidad de cupcakes", style = MaterialTheme.typography.titleMedium)
 
-        quantityOptions.forEach { item ->
+        quantityOptions.forEach { option ->
             Button(
-                onClick = { onNextButtonClicked(item.second) },
+                onClick = { onNextButtonClicked(option.second) },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "Opción ${item.second}")
+                Text(text = "${option.second} cupcakes")
             }
         }
     }
 }
-
