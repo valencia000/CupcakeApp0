@@ -1,27 +1,25 @@
-package com.example.cupcakeapp1.navigation
+package com.example.cupcakeapp1
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.cupcakeapp1.ui.FlavorScreen
 import com.example.cupcakeapp1.ui.StartOrderScreen
+import com.example.cupcakeapp1.ui.FlavorScreen
 import com.example.cupcakeapp1.ui.ConfirmationScreen
-import com.example.cupcakeapp1.data.DataSource
+
+object DataSource {
+    val quantityOptions = listOf(1 to 1, 2 to 6, 3 to 12)
+    val flavors = listOf("Vainilla", "Chocolate", "Fresa")
+}
 
 @Composable
-fun CupcakeNavGraph(
-    navController: NavHostController,
-    quantityOptions: List<Pair<Int, Int>> = DataSource.quantityOptions,
-    flavors: List<String> = DataSource.flavors
-) {
-    NavHost(
-        navController = navController,
-        startDestination = "start_order"
-    ) {
+fun CupcakeNavGraph(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = "start_order") {
+
         composable("start_order") {
             StartOrderScreen(
-                quantityOptions = quantityOptions,
+                quantityOptions = DataSource.quantityOptions,
                 onNextButtonClicked = { quantity ->
                     navController.currentBackStackEntry?.savedStateHandle?.set("quantity", quantity)
                     navController.navigate("flavor_selection")
@@ -35,7 +33,7 @@ fun CupcakeNavGraph(
 
             FlavorScreen(
                 quantity = quantity,
-                flavors = flavors,
+                flavors = DataSource.flavors,
                 onNextButtonClicked = { flavor, subtotal ->
                     navController.currentBackStackEntry?.savedStateHandle?.set("flavor", flavor)
                     navController.currentBackStackEntry?.savedStateHandle?.set("subtotal", subtotal)
@@ -54,7 +52,7 @@ fun CupcakeNavGraph(
                 flavor = flavor,
                 subtotal = subtotal,
                 onOrderConfirmed = {
-                    // Por ejemplo, reiniciar la app o mostrar mensaje
+                    // Volver a inicio
                     navController.popBackStack("start_order", inclusive = false)
                 }
             )

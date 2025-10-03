@@ -1,51 +1,46 @@
 package com.example.cupcakeapp1.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-val flavorOptions = listOf("Vainilla", "Chocolate", "Fresa")
-
 @Composable
-fun OrderScreen(quantity: Int) {
-    var selectedFlavor by remember { mutableStateOf(flavorOptions[0]) }
+fun OrderScreen(
+    quantity: Int,
+    flavors: List<String>,
+    onOrderConfirmed: () -> Unit,   // 👈 este es el callback correcto
+    modifier: Modifier = Modifier
+) {
+    var selectedFlavor by remember { mutableStateOf(flavors.first()) }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        modifier = modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text("Cantidad seleccionada: $quantity", style = MaterialTheme.typography.titleMedium)
-        Text("Selecciona tu sabor favorito:", style = MaterialTheme.typography.bodyLarge)
+        Text("Selecciona tu sabor:")
 
-        flavorOptions.forEach { flavor ->
+        // Radios para los sabores
+        flavors.forEach { flavor ->
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .selectable(
-                        selected = (flavor == selectedFlavor),
-                        onClick = { selectedFlavor = flavor }
-                    )
-                    .padding(8.dp)
+                verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
             ) {
                 RadioButton(
                     selected = (flavor == selectedFlavor),
                     onClick = { selectedFlavor = flavor }
                 )
-                Spacer(modifier = Modifier.width(8.dp))
                 Text(flavor)
             }
         }
 
+        Spacer(modifier = Modifier.height(16.dp))
+
         Button(
-            onClick = { /* Confirmar orden */ },
+            onClick = onOrderConfirmed,   // 👈 usamos el callback
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Confirmar orden")
+            Text("Confirmar pedido")
         }
     }
 }

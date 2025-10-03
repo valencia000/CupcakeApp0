@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CupcakeApp</string>
+
+    <!-- Cantidades -->
+    <string name="one_cupcake">1 cupcake</string>
+    <string name="six_cupcakes">6 cupcakes</string>
+    <string name="twelve_cupcakes">12 cupcakes</string>
 </resources>

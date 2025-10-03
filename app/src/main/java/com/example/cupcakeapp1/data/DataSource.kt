@@ -2,13 +2,10 @@ package com.example.cupcakeapp1.data
 
 object DataSource {
     val quantityOptions = listOf(
-        1, 6, 12
+        Pair(1, 1),
+        Pair(6, 6),
+        Pair(12, 12)
     )
 
-    val flavorOptions = listOf(
-        "Vainilla",
-        "Chocolate",
-        "Fresa",
-        "Limón"
-    )
+    val flavors = listOf("Vainilla", "Chocolate", "Fresa", "Limón")
 }

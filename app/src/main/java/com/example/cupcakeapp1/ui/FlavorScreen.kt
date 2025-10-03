@@ -1,66 +1,50 @@
 package com.example.cupcakeapp1.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.cupcakeapp1.ui.theme.CupcakeAppTheme
 
 @Composable
 fun FlavorScreen(
-    selectedQuantity: Int,
-    onConfirmOrder: () -> Unit,
-    modifier: Modifier = Modifier
+    quantity: Int,
+    flavors: List<String>,
+    onNextButtonClicked: (String, Int) -> Unit
 ) {
-    // Lista de sabores
-    val flavors = listOf("Vainilla", "Chocolate", "Fresa", "Red Velvet")
     var selectedFlavor by remember { mutableStateOf(flavors.first()) }
+    val subtotal = quantity * 1000  // ejemplo: 1000 por cupcake
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Text(text = "Seleccionaste $selectedQuantity cupcake(s).")
-        Text(text = "Elige el sabor:")
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        Text("Selecciona sabor", style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.height(16.dp))
 
         flavors.forEach { flavor ->
             Row(
-                verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                Modifier
+                    .fillMaxWidth()
+                    .clickable { selectedFlavor = flavor }
+                    .padding(vertical = 8.dp)
             ) {
                 RadioButton(
-                    selected = (flavor == selectedFlavor),
+                    selected = flavor == selectedFlavor,
                     onClick = { selectedFlavor = flavor }
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(text = flavor)
+                Spacer(Modifier.width(8.dp))
+                Text(flavor)
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(Modifier.height(16.dp))
+        Text("Subtotal: $subtotal")
 
+        Spacer(Modifier.height(16.dp))
         Button(
-            onClick = {
-                // Al presionar, ejecuta el callback
-                onConfirmOrder()
-            },
+            onClick = { onNextButtonClicked(selectedFlavor, subtotal) },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Confirmar Pedido")
+            Text("Confirmar sabor")
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun FlavorScreenPreview() {
-    CupcakeAppTheme {
-        FlavorScreen(
-            selectedQuantity = 6,
-            onConfirmOrder = { /* preview */ }
-        )
     }
 }
