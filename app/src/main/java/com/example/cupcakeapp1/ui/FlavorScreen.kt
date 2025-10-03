@@ -1,50 +1,44 @@
 package com.example.cupcakeapp1.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
-
+import androidx.compose.material3.RadioButton
 @Composable
 fun FlavorScreen(
     quantity: Int,
     flavors: List<String>,
-    onNextButtonClicked: (String, Int) -> Unit
+    onNextButtonClicked: (String, Int) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var selectedFlavor by remember { mutableStateOf(flavors.first()) }
-    val subtotal = quantity * 1000  // ejemplo: 1000 por cupcake
+    val subtotal = quantity * 5000 // ejemplo precio unitario
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        Text("Selecciona sabor", style = MaterialTheme.typography.titleMedium)
+    Column(modifier = modifier.padding(16.dp)) {
+        Text("Selecciona el sabor:")
         Spacer(Modifier.height(16.dp))
-
         flavors.forEach { flavor ->
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .clickable { selectedFlavor = flavor }
-                    .padding(vertical = 8.dp)
-            ) {
+            Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
                 RadioButton(
                     selected = flavor == selectedFlavor,
                     onClick = { selectedFlavor = flavor }
                 )
-                Spacer(Modifier.width(8.dp))
                 Text(flavor)
             }
         }
-
         Spacer(Modifier.height(16.dp))
         Text("Subtotal: $subtotal")
-
         Spacer(Modifier.height(16.dp))
         Button(
             onClick = { onNextButtonClicked(selectedFlavor, subtotal) },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Confirmar sabor")
+            Text("Siguiente")
         }
     }
 }
